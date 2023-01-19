@@ -1,20 +1,20 @@
-pt-BR':
+'pt-BR':
   activerecord:
     models:
       admin:
         one: Administrador
         other: Administradores
-      profile: 
+      profile:
         one: Perfil
-        other: Perfis
+        other: Perfis  
     attributes:
       admin:
         id: Código
         email: Email
         created_at: Criado em
-        update_at: Atualizado em
-       profile:
+        updated_at: Atualizado em
+    profile:
         id: Código
         email: Email
         created_at: Criado em
-        update_at: Atualizado em
+        updated_at: Atualizado ems

@@ -5,5 +5,15 @@ class Question < ApplicationRecord
 
   #kaminari
   paginates_per 5
-end
+
+  def self.search(page, term)
+    Question.includes(:answers)
+            .where("lower(description) LIKE ?", "%#{term.downcase}%")
+            .page(page)
+  end
+
+  def self.last_questions(page)
+    Question.includes(:answers).order('created_at desc').page(page)
+  end
+end 
 

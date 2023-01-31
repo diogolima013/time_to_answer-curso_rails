@@ -3,4 +3,3 @@ class Site::SearchController < SiteController
     @questions = Question._search_(params[:page], params[:term])
   end
 end
- 

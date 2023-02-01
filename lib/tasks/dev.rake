@@ -38,6 +38,7 @@ namespace :dev do
       end
     end
   end
+
   desc "Adiciona administradores extras"
   task add_extra_admins: :environment do
     10.times do |i|
@@ -48,6 +49,7 @@ namespace :dev do
       )
     end
   end
+
   desc "Adiciona o usuário padrão"
   task add_default_user: :environment do
     User.create!(
@@ -56,6 +58,7 @@ namespace :dev do
       password_confirmation: DEFAULT_PASSWORD
     )
   end
+
   desc "Adiciona assuntos padrões"
   task add_subjects: :environment do
     file_name = 'subjects.txt'
@@ -64,7 +67,18 @@ namespace :dev do
       Subject.create!(description: line.strip)
     end
   end
+
+  desc "Reseta o contador dos assuntos"
+  task reset_subject_counter: :environment do
+    show_spinner("Resetando contador dos assuntos...") do
+      Subject.find_each do |subject|
+        Subject.reset_counters(subject.id, :questions)
+      end
+    end
+  end
+
   private
+
   def create_question_params(subject = Subject.all.sample)
     { question: {
       description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
@@ -73,9 +87,11 @@ namespace :dev do
       }
     }
   end
+
   def create_answers_params(correct = false)
     {description: Faker::Lorem.sentence, correct: correct}
   end
+
   def add_answers(answers_array = [ ])
     rand(2..5).times do |i|
       answers_array.push(
@@ -83,10 +99,12 @@ namespace :dev do
       )
     end
   end
+
   def elect_true_answer(answers_array= [])
     selected_index = rand(answers_array.size)
     answers_array[selected_index] =  create_answers_params(true)
   end
+
   def show_spinner(msg_start, msg_end = "Concluído!")
     spinner = TTY::Spinner.new("[:spinner] #{msg_start}")
     spinner.auto_spin

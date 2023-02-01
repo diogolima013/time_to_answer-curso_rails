@@ -7,6 +7,12 @@ class Question < ApplicationRecord
   paginates_per 5
 
   #Scope só serve pra fazer pesquisas no banco de dados
+  scope :_search_subject_, -> (page, subject_id){
+    includes(:answers)
+    .where(subject_id: subject_id)
+    .page(page)
+  } 
+
   scope :_search_, -> (page, term){
     includes(:answers)
     .where("lower(description) LIKE ?", "%#{term.downcase}%")

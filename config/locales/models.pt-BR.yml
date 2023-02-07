@@ -29,9 +29,10 @@
         password: Senha
         created_at: Criado em
         updated_at: Atualizado em
-      profile_user:
+      user_profile:
         id: Código
         address: Endereço
+        zip_code: CEP
         gender: Sexo
         birthdate: Sobrenome
         created_at: Criado em
